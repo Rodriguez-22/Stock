@@ -129,6 +129,7 @@
 
 /* Animaciones personalizadas para la app de stock */
 @layer utilities {
+  /* ... (Tus keyframes existentes) ... */
   @keyframes slideInUp {
     from {
       opacity: 0;
@@ -218,5 +219,23 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  
+  /* 🍕 CLASE AÑADIDA PARA SOLUCIONAR EL PROBLEMA DEL CARRITO 🍕 */
+  /* Debes aplicar esta clase al contenedor principal del carrito (sidebar o modal) */
+  .cart-sidebar-container {
+      /* Esto asegura que el carrito flote por encima de cualquier otro elemento (incluido el Header) */
+      z-index: 1050 !important; 
+      /* Asegura que el z-index funcione y el carrito se mantenga en la pantalla */
+      position: fixed; 
+      /* Hace que ocupe todo el alto de la vista para que no se corte */
+      height: 100vh;
+      /* Asegura que no se corte si el Header tiene un z-index alto */
+  }
+
+  /* 🛠️ OPCIONAL: Clase para asegurar que el Header no tape */
+  /* Si tu Header usa una clase, puedes asegurar que su z-index sea menor */
+  .main-header {
+      z-index: 1000; /* Un valor alto, pero menor que el carrito (1050) */
   }
 }

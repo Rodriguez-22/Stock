@@ -6,9 +6,13 @@ import { useCart } from "@/hooks/use-cart"
 
 export function Cart() {
   const { cart, removeFromCart, clearCart, cartCount } = useCart()
+  // Mantenemos el estado local para abrir/cerrar.
   const [open, setOpen] = useState(false)
 
-  // Agrupar productos por id
+  // Función de cierre para usar en el botón 'X' y en el fondo.
+  const closeCart = () => setOpen(false)
+
+  // Agrupar productos por id (mantengo tu lógica, es correcta)
   const groupedCart = useMemo(() => {
     const map = new Map()
     for (const item of cart) {
@@ -28,10 +32,11 @@ export function Cart() {
 
   return (
     <>
-      {/* Botón flotante */}
+      {/* Botón flotante para ABRIR CARRITO */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 p-4 rounded-full shadow-lg flex items-center justify-center z-50"
+        // Aseguramos que este botón también esté alto, pero no tanto como el carrito abierto
+        className="fixed bottom-6 right-6 p-4 rounded-full shadow-lg flex items-center justify-center z-[100]" 
         style={{
           backgroundColor: "var(--primary)",
           color: "var(--primary-foreground)"
@@ -49,15 +54,19 @@ export function Cart() {
         )}
       </button>
 
-      {/* Fondo del slide-over */}
+      {/* Fondo del slide-over (Overlay) */}
       {open && (
         <div
-          className="fixed inset-0 z-50"
+          // ⚠️ CORRECCIÓN CLAVE: Aumentar el z-index para que esté sobre el Header
+          // Utilizamos un valor muy alto (ej. 1050)
+          className="fixed inset-0 z-[1050] h-screen" 
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
-          onClick={() => setOpen(false)}
+          onClick={closeCart} // Cerrar al hacer clic en el fondo
         >
           <div
-            className="fixed right-0 top-0 h-full w-96 p-6 shadow-xl overflow-y-auto transition-transform transform"
+            // ⚠️ CORRECCIÓN CLAVE: Aseguramos que el contenido esté aún más alto que el fondo
+            // Usamos h-screen para que ocupe todo el alto y no se corte
+            className="fixed right-0 top-0 h-screen w-96 p-6 shadow-xl overflow-y-auto transition-transform transform z-[1060]" 
             style={{
               backgroundColor: "var(--card)",
               color: "var(--card-foreground)",
@@ -65,15 +74,20 @@ export function Cart() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
+            {/* Header del carrito */}
             <div className="flex justify-between items-center mb-4">
               <h2 className="font-bold text-lg">Carrito</h2>
-              <button onClick={() => setOpen(false)} aria-label="Cerrar carrito">
+              <button 
+                onClick={closeCart} // Usamos la función de cierre
+                aria-label="Cerrar carrito"
+                // ⚠️ Aseguramos que la 'X' sea claramente visible y clicable
+                className="p-1 rounded-full hover:bg-muted/50 transition-colors" 
+              >
                 <X size={20} />
               </button>
             </div>
 
-            {/* Contenido */}
+            {/* Contenido (El resto del contenido no necesita cambios de z-index) */}
             {groupedCart.length === 0 && (
               <p style={{ color: "var(--muted-foreground)" }}>El carrito está vacío</p>
             )}
@@ -84,6 +98,7 @@ export function Cart() {
                 className="flex justify-between py-2 border-b"
                 style={{ borderColor: "var(--border)" }}
               >
+                {/* ... (Detalles del artículo) ... */}
                 <div>
                   <p className="font-semibold">{item.name}</p>
                   <p className="text-sm" style={{ color: "var(--muted-foreground)" }}>
@@ -114,6 +129,7 @@ export function Cart() {
 
                 {/* Botones de acción */}
                 <div className="mt-4 flex flex-col gap-3">
+                  {/* ... (Botones de Checkout y Vaciar) ... */}
                   <button
                     onClick={() => alert("Checkout no implementado aún")}
                     className="w-full p-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
