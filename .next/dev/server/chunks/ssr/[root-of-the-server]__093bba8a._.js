@@ -127,8 +127,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$cart$2d$provid
 ;
 function Cart() {
     const { cart, removeFromCart, clearCart, cartCount } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$cart$2d$provider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCart"])();
+    // Mantenemos el estado local para abrir/cerrar.
     const [open, setOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Agrupar productos por id
+    // Función de cierre para usar en el botón 'X' y en el fondo.
+    const closeCart = ()=>setOpen(false);
+    // Agrupar productos por id (mantengo tu lógica, es correcta)
     const groupedCart = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         const map = new Map();
         for (const item of cart){
@@ -152,7 +155,8 @@ function Cart() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: ()=>setOpen(true),
-                className: "fixed bottom-6 right-6 p-4 rounded-full shadow-lg flex items-center justify-center z-50",
+                // Aseguramos que este botón también esté alto, pero no tanto como el carrito abierto
+                className: "fixed bottom-6 right-6 p-4 rounded-full shadow-lg flex items-center justify-center z-[100]",
                 style: {
                     backgroundColor: "var(--primary)",
                     color: "var(--primary-foreground)"
@@ -163,7 +167,7 @@ function Cart() {
                         size: 20
                     }, void 0, false, {
                         fileName: "[project]/components/ui/cart.tsx",
-                        lineNumber: 41,
+                        lineNumber: 46,
                         columnNumber: 9
                     }, this),
                     cartCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -175,23 +179,27 @@ function Cart() {
                         children: cartCount
                     }, void 0, false, {
                         fileName: "[project]/components/ui/cart.tsx",
-                        lineNumber: 43,
+                        lineNumber: 48,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ui/cart.tsx",
-                lineNumber: 32,
+                lineNumber: 36,
                 columnNumber: 7
             }, this),
             open && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 z-50",
+                // ⚠️ CORRECCIÓN CLAVE: Aumentar el z-index para que esté sobre el Header
+                // Utilizamos un valor muy alto (ej. 1050)
+                className: "fixed inset-0 z-[1050] h-screen",
                 style: {
                     backgroundColor: "rgba(0,0,0,0.4)"
                 },
-                onClick: ()=>setOpen(false),
+                onClick: closeCart,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "fixed right-0 top-0 h-full w-96 p-6 shadow-xl overflow-y-auto transition-transform transform",
+                    // ⚠️ CORRECCIÓN CLAVE: Aseguramos que el contenido esté aún más alto que el fondo
+                    // Usamos h-screen para que ocupe todo el alto y no se corte
+                    className: "fixed right-0 top-0 h-screen w-96 p-6 shadow-xl overflow-y-auto transition-transform transform z-[1060]",
                     style: {
                         backgroundColor: "var(--card)",
                         color: "var(--card-foreground)",
@@ -207,28 +215,30 @@ function Cart() {
                                     children: "Carrito"
                                 }, void 0, false, {
                                     fileName: "[project]/components/ui/cart.tsx",
-                                    lineNumber: 70,
+                                    lineNumber: 79,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setOpen(false),
+                                    onClick: closeCart,
                                     "aria-label": "Cerrar carrito",
+                                    // ⚠️ Aseguramos que la 'X' sea claramente visible y clicable
+                                    className: "p-1 rounded-full hover:bg-muted/50 transition-colors",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/components/ui/cart.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 86,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/ui/cart.tsx",
-                                    lineNumber: 71,
+                                    lineNumber: 80,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/ui/cart.tsx",
-                            lineNumber: 69,
+                            lineNumber: 78,
                             columnNumber: 13
                         }, this),
                         groupedCart.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -238,7 +248,7 @@ function Cart() {
                             children: "El carrito está vacío"
                         }, void 0, false, {
                             fileName: "[project]/components/ui/cart.tsx",
-                            lineNumber: 78,
+                            lineNumber: 92,
                             columnNumber: 15
                         }, this),
                         groupedCart.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -254,7 +264,7 @@ function Cart() {
                                                 children: item.name
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ui/cart.tsx",
-                                                lineNumber: 88,
+                                                lineNumber: 103,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -270,13 +280,13 @@ function Cart() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/ui/cart.tsx",
-                                                lineNumber: 89,
+                                                lineNumber: 104,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ui/cart.tsx",
-                                        lineNumber: 87,
+                                        lineNumber: 102,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -289,13 +299,13 @@ function Cart() {
                                         children: "X"
                                     }, void 0, false, {
                                         fileName: "[project]/components/ui/cart.tsx",
-                                        lineNumber: 93,
+                                        lineNumber: 108,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, item.id, true, {
                                 fileName: "[project]/components/ui/cart.tsx",
-                                lineNumber: 82,
+                                lineNumber: 96,
                                 columnNumber: 15
                             }, this)),
                         groupedCart.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -315,7 +325,7 @@ function Cart() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/ui/cart.tsx",
-                                            lineNumber: 111,
+                                            lineNumber: 126,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -326,13 +336,13 @@ function Cart() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/ui/cart.tsx",
-                                            lineNumber: 112,
+                                            lineNumber: 127,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/ui/cart.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 122,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -348,7 +358,7 @@ function Cart() {
                                             children: "Checkout"
                                         }, void 0, false, {
                                             fileName: "[project]/components/ui/cart.tsx",
-                                            lineNumber: 117,
+                                            lineNumber: 133,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -361,13 +371,13 @@ function Cart() {
                                             children: "Vaciar carrito"
                                         }, void 0, false, {
                                             fileName: "[project]/components/ui/cart.tsx",
-                                            lineNumber: 125,
+                                            lineNumber: 141,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/ui/cart.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 131,
                                     columnNumber: 17
                                 }, this)
                             ]
@@ -375,12 +385,12 @@ function Cart() {
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/ui/cart.tsx",
-                    lineNumber: 59,
+                    lineNumber: 66,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/ui/cart.tsx",
-                lineNumber: 54,
+                lineNumber: 59,
                 columnNumber: 9
             }, this)
         ]
