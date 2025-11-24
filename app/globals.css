@@ -176,7 +176,7 @@
     }
     50% {
       /* ⚠️ MODIFICADO: Reducido de -5px a -2px para un movimiento más sutil */
-      transform: translateY(-2px); 
+      transform: translateY(-1px); 
     }
   }
 
@@ -198,7 +198,7 @@
 
   .animate-float {
     /* ⚠️ MODIFICADO: Aumentado de 3s a 6s para una animación más lenta y relajada */
-    animation: float 6s ease-in-out infinite; 
+    animation: float 10s ease-in-out infinite; 
   }
 
   /* Clases de utilidad adicionales */

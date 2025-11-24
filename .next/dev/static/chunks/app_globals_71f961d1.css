@@ -5852,7 +5852,7 @@
   }
 
   .animate-float {
-    animation: 6s ease-in-out infinite float;
+    animation: 10s ease-in-out infinite float;
   }
 
   .gradient-primary {
